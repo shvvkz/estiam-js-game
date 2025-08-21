@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+:root {
+  --bg: #0a0a0f;
+  --panel: #1a1a22;
+  --accent-x: #ff2d75;
+  --accent-o: #1abfff;
+  --glow-x: 0 0 10px #ff2d75, 0 0 20px #ff2d75;
+  --glow-o: 0 0 10px #1abfff, 0 0 20px #1abfff;
+  --text: #f5f5f5;
+  --fade: #333;
+  --fade-soft: rgba(255,255,255,0.1);
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+}
+
+.container {
+  text-align: center;
+  max-width: 450px;
+  width: 95%;
+  margin: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.2rem;
+  gap: 10px;
+}
+
+.header h1 {
+  font-size: 1.6rem;
+  background: linear-gradient(90deg, var(--accent-x), var(--accent-o));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#reset {
+  background: var(--accent-x);
+  border: none;
+  color: white;
+  padding: 0.6em 1.2em;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s ease-in-out;
+}
+
+#reset:hover {
+  background-color: var(--accent-o);
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  background-color: var(--fade);
+  padding: 8px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+}
+
+.cell {
+  height: 110px;
+  background-color: var(--panel);
+  border-radius: 10px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  position: relative;
+}
+
+.cell:hover {
+  background-color: var(--fade-soft);
+  transform: scale(1.03);
+}
+
+.cell:disabled {
+  cursor: default;
+  transform: none;
+}
+
+.cell img.piece {
+  width: 75%;
+  height: 75%;
+  object-fit: contain;
+  animation: pop-in 0.2s ease-out;
+}
+
+.cell.X img {
+  filter: drop-shadow(var(--glow-x));
+}
+
+.cell.O img {
+  filter: drop-shadow(var(--glow-o));
+}
+
+.cell[data-expiring="true"] img.piece {
+  animation: pulse-expire 0.8s infinite;
+  opacity: 0.7;
+}
+
+.log {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  min-height: 1.5em;
+  transition: all 0.3s;
+}
+
+@keyframes pop-in {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse-expire {
+  0% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.1); opacity: 0.4; }
+  100% { transform: scale(1); opacity: 0.7; }
+}
+
+footer {
+  text-align: center;
+  padding: 15px 0;
+  font-size: 0.9rem;
+  color: #aaa;
+  background-color: transparent;
+}
+
+footer a {
+  color: #ff2d75;
+  text-decoration: none;
+}
